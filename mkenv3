@@ -44,13 +44,13 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
     fi
 )
 
-PYTHON_DOWNLOAD_PATH="https://www.python.org/ftp/python/3.4.1/"
-PYTHON_FULL_NAME="Python-3.4.1.tgz"
-PYTHON_BASE_NAME="Python-3.4.1"
+PYTHON_DOWNLOAD_PATH="https://www.python.org/ftp/python/3.5.1/"
+PYTHON_FULL_NAME="Python-3.5.1.tgz"
+PYTHON_BASE_NAME="Python-3.5.1"
 ROOT=/MyRoot
-MyProject="MyProject"
+MyProject="bb-hos"
 MyProjectPath="$ROOT/$MyProject"
-PYTHONHOME="$ROOT/python34"
+PYTHONHOME="$ROOT/python35"
 
 mkdir -p cache
 mkdir -p build/python
@@ -118,8 +118,8 @@ mkdir -p build/mod_wsgi
        cd build/mod_wsgi
        tar xvzf ../../cache/mod_wsgi-3.4.tar.gz
        cd mod_wsgi-3.4
-       ./configure --prefix=$ROOT/mod_wsgi --with-python=$ROOT/python34/bin/python3.4 LDFLAGS="-Wl,-rpath -Wl,$ROOT/python34/lib"
-       sed -i "s/-lpython3.4/-lpython3.4m/" Makefile  # https://groups.google.com/forum/#!topic/modwsgi/zk28E_XS68w
+       ./configure --prefix=$ROOT/mod_wsgi --with-python=$ROOT/python35/bin/python3.5 LDFLAGS="-Wl,-rpath -Wl,$ROOT/python34/lib"
+       sed -i "s/-lpython3.5/-lpython3.5m/" Makefile  # https://groups.google.com/forum/#!topic/modwsgi/zk28E_XS68w
        sed -i "s|DESTDIR =|DESTDIR = $ROOT/mod_wsgi|" Makefile
        make
        make install
@@ -130,7 +130,7 @@ mkdir -p build/mod_wsgi
 )
 
 if [[ ! -r "$MyProjectPath/bin/activate" ]] ; then 
-    "$PYTHONHOME/bin/python3.4" "$PYTHONHOME/bin/pyvenv" "$MyProjectPath"
+    "$PYTHONHOME/bin/python3.5" "$PYTHONHOME/bin/pyvenv" "$MyProjectPath"
 else
     echo "$MyProjectPath  already there, skipping..."
 fi
@@ -155,7 +155,7 @@ cat << EOF > /etc/httpd/conf.d/$MyProject.conf
 </Directory>
 
 WSGIScriptAlias /$MyProject $ROOT/$MyProject-site/$MyProject/$MyProject/wsgi.py
-WSGIPythonPath $ROOT/$MyProject-site/$MyProject:$MyProjectPath/lib/python3.4/site-packages
+WSGIPythonPath $ROOT/$MyProject-site/$MyProject:$MyProjectPath/lib/python3.5/site-packages
 
 #WSGIApplicationGroup %{GLOBAL}
 
@@ -167,7 +167,8 @@ WSGIPythonPath $ROOT/$MyProject-site/$MyProject:$MyProjectPath/lib/python3.4/sit
 EOF
 
 # use the fill path for pip else it installs in the global python installation instead of our venv
-$ROOT/python34/bin/pip3.4 install https://www.djangoproject.com/download/1.7c2/tarball/
-#$ROOT/python34/bin/pip3.4 install django
-$ROOT/python34/bin/pip3.4 install psycopg2
-$ROOT/python34/bin/pip3.4 install ipython
+$ROOT/python35/bin/pip3.5 install https://www.djangoproject.com/download/1.9c2/tarball/
+#$ROOT/python35/bin/pip3.4 install django
+$ROOT/python35/bin/pip3.5 install mysqlclient
+$ROOT/python35/bin/pip3.5 install psycopg2
+$ROOT/python35/bin/pip3.5 install ipython
