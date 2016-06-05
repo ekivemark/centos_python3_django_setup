@@ -21,7 +21,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
         echo "uninstall mod_wsgi"
         exit 1
     else
-        echo "which is since we do not want the default mod_wsgi"
+        echo "which is great since we do not want the default mod_wsgi"
     fi
 )
 
@@ -32,7 +32,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
     # DB="postgresql postgresql-devel postgresql-libs"
     # MySQL:
     DB="mysql"
-    rpms='wget openssl openssl-devel $DB gcc httpd httpd-devel httpd-tools httpd-manual zlib-devel readline readline-devel bzip2-devel'
+    rpms="wget openssl openssl-devel gcc httpd httpd-devel httpd-tools httpd-manual zlib-devel readline readline-devel bzip2-devel $DB"
     for i in $rpms; do 
         set +e
         rpm -q $i
