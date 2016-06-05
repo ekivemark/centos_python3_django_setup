@@ -123,7 +123,7 @@ mkdir -p build/mod_wsgi
     if [[ ! -r build/mod_wsgi/mod_wsgi-4.5.2/mod_wsgi.lo ]]; then
        cd build/mod_wsgi
        tar xvzf ../../cache/mod_wsgi-4.5.2.tar.gz
-       cd mod_wsgi-3.4
+       cd mod_wsgi-4.5.2
        ./configure --prefix=$ROOT/mod_wsgi --with-python=$ROOT/python35/bin/python3.5 LDFLAGS="-Wl,-rpath -Wl,$ROOT/python34/lib"
        sed -i "s/-lpython3.5/-lpython3.5m/" Makefile  # https://groups.google.com/forum/#!topic/modwsgi/zk28E_XS68w
        sed -i "s|DESTDIR =|DESTDIR = $ROOT/mod_wsgi|" Makefile
