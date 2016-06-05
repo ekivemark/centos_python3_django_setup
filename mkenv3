@@ -74,11 +74,12 @@ mkdir -p build/mod_wsgi
 # fetch mod_wsgi
 (
    cd cache
-   if [[ ! -r mod_wsgi-3.4.tar.gz ]]; then
-      wget http://modwsgi.googlecode.com/files/mod_wsgi-3.4.tar.gz
+   if [[ ! -r mod_wsgi-4.5.2.tar.gz ]]; then
+      # wget http://modwsgi.googlecode.com/files/mod_wsgi-4.5.2.tar.gz
+      wget https://github.com/GrahamDumpleton/mod_wsgi/archive/4.5.2.tar.gz
    fi
    if [[ ! -r mod_wsgi-3.4.tar.gz ]]; then
-      echo "Could not find mod_wsgi-3.4.tar.gz in $(pwd)"
+      echo "Could not find mod_wsgi-4.5.2.tar.gz in $(pwd)"
       exit 1
    fi
 )
@@ -114,9 +115,9 @@ mkdir -p build/mod_wsgi
 (
     echo "/$ROOT/python34/lib > /etc/ld.so.conf.d/$ROOT-python3.conf"
     ldconfig -v
-    if [[ ! -r build/mod_wsgi/mod_wsgi-3.4/mod_wsgi.lo ]]; then
+    if [[ ! -r build/mod_wsgi/mod_wsgi-4.5.2/mod_wsgi.lo ]]; then
        cd build/mod_wsgi
-       tar xvzf ../../cache/mod_wsgi-3.4.tar.gz
+       tar xvzf ../../cache/mod_wsgi-4.5.2.tar.gz
        cd mod_wsgi-3.4
        ./configure --prefix=$ROOT/mod_wsgi --with-python=$ROOT/python35/bin/python3.5 LDFLAGS="-Wl,-rpath -Wl,$ROOT/python34/lib"
        sed -i "s/-lpython3.5/-lpython3.5m/" Makefile  # https://groups.google.com/forum/#!topic/modwsgi/zk28E_XS68w
@@ -167,8 +168,11 @@ WSGIPythonPath $ROOT/$MyProject-site/$MyProject:$MyProjectPath/lib/python3.5/sit
 EOF
 
 # use the fill path for pip else it installs in the global python installation instead of our venv
-$ROOT/python35/bin/pip3.5 install https://www.djangoproject.com/download/1.9c2/tarball/
+$ROOT/python35/bin/pip3.5 install https://www.djangoproject.com/download/1.8.13/tarball/
 #$ROOT/python35/bin/pip3.4 install django
-$ROOT/python35/bin/pip3.5 install mysqlclient
-$ROOT/python35/bin/pip3.5 install psycopg2
-$ROOT/python35/bin/pip3.5 install ipython
+# MySQL
+#$ROOT/python35/bin/pip3.5 install mysqlclient
+# postgrSQL
+#$ROOT/python35/bin/pip3.5 install psycopg2
+# iPython
+#$ROOT/python35/bin/pip3.5 install ipython
