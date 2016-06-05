@@ -28,7 +28,11 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 (
     error=0
     # http://www.1stbyte.com/2005/06/26/configure-and-compile-python-with-zlib/
-    rpms='wget openssl openssl-devel postgresql postgresql-devel postgresql-libs gcc httpd httpd-devel httpd-tools httpd-manual zlib-devel readline readline-devel bzip2-devel'
+    # Postgreql:
+    # DB="postgresql postgresql-devel postgresql-libs"
+    # MySQL:
+    DB="mysql"
+    rpms='wget openssl openssl-devel $DB gcc httpd httpd-devel httpd-tools httpd-manual zlib-devel readline readline-devel bzip2-devel'
     for i in $rpms; do 
         set +e
         rpm -q $i
