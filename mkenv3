@@ -81,8 +81,9 @@ mkdir -p build/mod_wsgi
    if [[ ! -r mod_wsgi-4.5.2.tar.gz ]]; then
       # wget http://modwsgi.googlecode.com/files/mod_wsgi-4.5.2.tar.gz
       wget https://github.com/GrahamDumpleton/mod_wsgi/archive/4.5.2.tar.gz
+      mv 4.5.2.tar.gz mod_wsgi-4.5.2.tar.gz
    fi
-   if [[ ! -r mod_wsgi-3.4.tar.gz ]]; then
+   if [[ ! -r mod_wsgi-4.5.2.tar.gz ]]; then
       echo "Could not find mod_wsgi-4.5.2.tar.gz in $(pwd)"
       exit 1
    fi
