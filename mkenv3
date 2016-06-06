@@ -124,7 +124,7 @@ mkdir -p build/mod_wsgi
        cd build/mod_wsgi
        tar xvzf ../../cache/mod_wsgi-4.5.2.tar.gz
        cd mod_wsgi-4.5.2
-       ./configure --prefix=$ROOT/mod_wsgi --with-python=$ROOT/python35/bin/python3.5 LDFLAGS="-Wl,-rpath -Wl,$ROOT/python35/lib"
+       ./configure --prefix=$ROOT/mod_wsgi --with-python=$ROOT/python35/bin/python3.5 --with-apxs=/usr/sbin/apsx LDFLAGS="-Wl,-rpath -Wl,$ROOT/python35/lib"
        sed -i "s/-lpython3.5/-lpython3.5m/" Makefile  # https://groups.google.com/forum/#!topic/modwsgi/zk28E_XS68w
        sed -i "s|DESTDIR =|DESTDIR = $ROOT/mod_wsgi|" Makefile
        make
